@@ -1,9 +1,14 @@
-import React from 'react'
+import React,{useState} from 'react'
+import TypingField from './TypingField';
+import WordsField from './WordsField';
+
 
 function App() {
+  const [currentWord,setCurrentWord] = useState();
   return (
     <div>
-      <p>working</p>
+      <TypingField />
+      <WordsField />
     </div>
   )
 }

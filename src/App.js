@@ -1,14 +1,13 @@
 import React,{useState} from 'react'
-import TypingField from './TypingField';
-import WordsField from './WordsField';
-
 
 function App() {
   const [currentWord,setCurrentWord] = useState();
+  const handleTyping = ()=>{
+
+  }
   return (
     <div>
-      <TypingField />
-      <WordsField />
+        <input type="text" value={currentWord} onChange={handleTyping}/>
     </div>
   )
 }

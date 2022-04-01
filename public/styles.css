@@ -6,31 +6,34 @@
     height: 50px;
     font-size: 32px;
 }
-.test1{
-    color:red;
+.writen-words{
+    color:grey;
     overflow:hidden;
     max-width: 50%;
     height: 50px;
     display: flex;
     flex-direction: row-reverse;
 }
-.test2{
+.current-word{
     text-align: right;
     align-self: stretch;
-    background-color: blue;
     margin-left:8px;
-    margin-right:8px;
+    color:blue;
 }
-.test3{
+.words-to-write{
+    min-width: 50%;
     max-width: 50%;
     overflow: hidden;
     display: flex;
     justify-self:center;
 }
-.test1 span{
+.wrong-word{
+    text-decoration: line-through;
+}
+.writen-words span{
     margin-left:8px;
 }
 
-.test3 span{
+.words-to-write span{
     margin-right: 8px;
 }

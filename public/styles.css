@@ -1,6 +1,36 @@
-.test{
-    text-align: right;
+.holder{
+    display: flex;
+    justify-content:end;
+    width: 50vw;
+    border:solid;
+    height: 50px;
+    font-size: 32px;
+}
+.test1{
+    color:red;
+    overflow:hidden;
+    max-width: 50%;
+    height: 50px;
+    display: flex;
+    flex-direction: row-reverse;
 }
 .test2{
-    width:400px;
+    text-align: right;
+    align-self: stretch;
+    background-color: blue;
+    margin-left:8px;
+    margin-right:8px;
+}
+.test3{
+    max-width: 50%;
+    overflow: hidden;
+    display: flex;
+    justify-self:center;
+}
+.test1 span{
+    margin-left:8px;
+}
+
+.test3 span{
+    margin-right: 8px;
 }

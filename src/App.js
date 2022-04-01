@@ -1,14 +1,17 @@
 import React,{useState,useEffect} from 'react'
+import TypingField from './TypingField';
 
 function App() {
   const [currentWord,setCurrentWord] = useState("");
   const [words,setWords] = useState([]);
   const [wordToCheck,setWordToCheck] = useState("");
   const [wordsPassed,setWordsPassed] = useState([]);
+  const [isTypingCorrect,setIsTypingCorrect] = useState(true);
+  const [numCorrectWords,setNumCorrectWords] = useState(0);
 
   const handleTyping = (e)=>{
+    console.log(e);
       const key = e.key;
-
       if(key=="Backspace"){
         backspacePressed(key);
       }else if(key == " "){
@@ -26,7 +29,7 @@ function App() {
     const subString = wordToCheck.substring(0,tempWord.length);
 
     if(subString === tempWord){
-
+      setIsTypingCorrect(true);
       setWords((prevWords)=>{
 
         return prevWords.map((item,index)=>{
@@ -39,10 +42,13 @@ function App() {
           } 
         })
       })
+    }else{
+      setIsTypingCorrect(false);
     }
   }
 
   const spacePressed = () =>{
+      //removes the first word from the array 
       setWords((prevWords)=>{
         return prevWords.filter((item,index)=>{
           if(index === 1){
@@ -53,17 +59,26 @@ function App() {
           }
         })
       })
+      //add the word writen in the input in the passed words array
+      //and resets the currentWord
       setWordsPassed([...wordsPassed,currentWord])
       setCurrentWord("");
+
+      if(currentWord === wordToCheck){
+        setNumCorrectWords(numCorrectWords+1);
+      }
   }
   const backspacePressed = (key) =>{
     if(currentWord.length > 0){
       //note:must return 1 char to the first word of the words array
       //if the currentWord is equl to the wordToCheck
       const subString = wordToCheck.substring(0,currentWord.length);
-      console.log(subString +"===" + wordToCheck);
+
       if(subString === currentWord){
+        setIsTypingCorrect(true);
+
         const lastChar = subString[subString.length-1];
+
         setWords((prevWords)=>{
           return prevWords.map((item,index)=>{
             if(index===0){
@@ -73,11 +88,19 @@ function App() {
             }
           })
         })
+      }else{
+        setIsTypingCorrect(false);
       }
       
-      //remoes the last char from the currentWord-input elemnt
+      //removes the last char from the currentWord-input elemnt
       const slicedWord = currentWord.substring(0,currentWord.length-1);
       setCurrentWord(slicedWord);
+
+      //chek if after removing 1 char the word will it be correct 
+      const slicedWord2 = wordToCheck.substring(0,slicedWord.length);
+      if(slicedWord2===slicedWord){
+        setIsTypingCorrect(true);
+      }
     }
 
   }
@@ -90,37 +113,18 @@ function App() {
       setWords(res);
     })
   },[])
+
   return (
     <div>
-        <input className="test2" type="text" value={currentWord} onKeyUp={handleTyping}/>
-        <div className='holder' tabIndex="0" onKeyUp={handleTyping}>
-          <div className='test1'>
-            {
-              //loops though the array from the back
-              wordsPassed.slice(0).reverse().map(item=>{
-                return (
-                  <span>{item +" "}</span>
-                  )
-                })
-              }
-          </div>
-          <div className='test2' onKeyUp={handleTyping}>
-              {currentWord}
-          </div>
-          <div className='test3'>
-            {
-              words.map(item=>{
-                return(
-                  <span>
-                    {item +" "}
-                  </span>
-                )
-              })
-            }
-          </div>
-        </div>
-
-        <p>{currentWord}</p>
+        <TypingField data={{
+           currentWord:currentWord,
+           words:words,
+           wordsPassed:wordsPassed,
+           numCorrectWords:numCorrectWords,
+           isTypingCorrect:isTypingCorrect,
+        }}
+        handler={handleTyping}
+        />
     </div>
   )
 }

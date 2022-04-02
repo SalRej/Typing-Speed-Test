@@ -1,7 +1,7 @@
 import React,{useState,useEffect} from 'react'
 import TypingField from './TypingField';
 import Timer from './Timer';
-
+import Results from './Results';
 
 function App() {
   const [currentWord,setCurrentWord] = useState("");
@@ -11,13 +11,13 @@ function App() {
   const [isTypingCorrect,setIsTypingCorrect] = useState(true);
 
   const [result,setResult] = useState({numCorrectWords:0,numCorrectChars:0,accuracy:0});
-  const [timeLeft,setTimeLeft] = useState(60);
+  const [timeLeft,setTimeLeft] = useState(10);
   const [intervalId,setIntervalId] = useState(0);
 
   const handleTyping = (e)=>{
 
     //if timeleft is 60 run the timer 
-    if(timeLeft === 60){
+    if(timeLeft === 10){
       //set the time left - 1 , if i dont do it when i type fast at the beggining the interval will be called mutiple times
       setTimeLeft(timeLeft-1);
       const interval = setInterval(()=>setTimeLeft(prevTime=>prevTime-1),1000);
@@ -153,7 +153,7 @@ function App() {
   },[])
 
   useEffect(()=>{
-    console.log(timeLeft)
+    //clear the timer interval when it reacehs 0
     if(timeLeft<=0){
       clearInterval(intervalId);
       setIntervalId(0);
@@ -176,6 +176,10 @@ function App() {
         }}
         handler={handleTyping}
         />
+        {timeLeft===0 && <Results 
+          numCorrectWords={result.numCorrectWords}
+          numCorrectChars={result.numCorrectChars}
+          accuracy={result.accuracy} />}
     </div>
   )
 }

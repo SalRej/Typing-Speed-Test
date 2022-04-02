@@ -1,5 +1,7 @@
 import React,{useState,useEffect} from 'react'
 import TypingField from './TypingField';
+import Timer from './Timer';
+
 
 function App() {
   const [currentWord,setCurrentWord] = useState("");
@@ -7,18 +9,31 @@ function App() {
   const [wordToCheck,setWordToCheck] = useState("");
   const [wordsPassed,setWordsPassed] = useState([]);
   const [isTypingCorrect,setIsTypingCorrect] = useState(true);
-  const [numCorrectWords,setNumCorrectWords] = useState(0);
+
+  const [result,setResult] = useState({numCorrectWords:0,numCorrectChars:0,accuracy:0});
+  const [timeLeft,setTimeLeft] = useState(60);
+  const [intervalId,setIntervalId] = useState(0);
 
   const handleTyping = (e)=>{
-    console.log(e);
-      const key = e.key;
-      if(key=="Backspace"){
-        backspacePressed(key);
-      }else if(key == " "){
-        spacePressed();
-      }else{
-        typing(key);
-      }
+
+    //if timeleft is 60 run the timer 
+    if(timeLeft === 60){
+      //set the time left - 1 , if i dont do it when i type fast at the beggining the interval will be called mutiple times
+      setTimeLeft(timeLeft-1);
+      const interval = setInterval(()=>setTimeLeft(prevTime=>prevTime-1),1000);
+      setIntervalId(interval);
+    }
+   
+    
+    const key = e.key;
+    if(key=="Backspace"){
+      backspacePressed(key);
+    }else if(key == " "){
+      spacePressed();
+    }else{
+      typing(key);
+    }
+  
   }
   const typing = (key)=>{
 
@@ -64,11 +79,33 @@ function App() {
       setWordsPassed([...wordsPassed,currentWord])
       setCurrentWord("");
 
+      //if the words is corrcet increment the num of correct words and 
+      //add to num of correct chars the lenght of the word
+      //calulate the accuracy 
       if(currentWord === wordToCheck){
-        setNumCorrectWords(numCorrectWords+1);
+
+        const correctWords = result.numCorrectWords+1;
+        const correctChars = result.numCorrectChars+wordToCheck.length;
+        console.log(wordsPassed.length)
+
+        //im adding 1 to wordsPassed.lenght ,because the wordsPassed is not updated yet
+        //from the previous setWordsPassed call 
+        const accuracy = 100/(1 + wordsPassed.length) * correctWords;
+        setResult({
+          ...result,
+          numCorrectWords:correctWords,
+          numCorrectChars:correctChars,
+          accuracy:accuracy
+        })
+      }else{
+        const accuracy = 100/(1 + wordsPassed.length) * result.numCorrectWords;
+        setResult({
+          ...result,
+          accuracy:accuracy
+        })
       }
   }
-  const backspacePressed = (key) =>{
+  const backspacePressed = () =>{
     if(currentWord.length > 0){
       //note:must return 1 char to the first word of the words array
       //if the currentWord is equl to the wordToCheck
@@ -106,6 +143,7 @@ function App() {
   }
 
   useEffect(()=>{
+
     fetch(`https://random-word-api.herokuapp.com/word?number=20`)
     .then(res=>res.json())
     .then(res=>{
@@ -114,13 +152,26 @@ function App() {
     })
   },[])
 
+  useEffect(()=>{
+    console.log(timeLeft)
+    if(timeLeft<=0){
+      clearInterval(intervalId);
+      setIntervalId(0);
+    }
+  },[timeLeft])
+
   return (
     <div>
+        <Timer 
+          timeLeft={timeLeft}
+          numCorrectWords={result.numCorrectWords}
+          numCorrectChars={result.numCorrectChars}
+          accuracy={result.accuracy}
+        />
         <TypingField data={{
            currentWord:currentWord,
            words:words,
            wordsPassed:wordsPassed,
-           numCorrectWords:numCorrectWords,
            isTypingCorrect:isTypingCorrect,
         }}
         handler={handleTyping}

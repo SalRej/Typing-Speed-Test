@@ -10,21 +10,21 @@ function TypingField(props) {
           <div className='writen-words'>
             {
               //loops though the array from the back
-              props.data.wordsPassed.slice(0).reverse().map(item=>{
+              props.data.wordsPassed.slice(0).reverse().map((item,index)=>{
                 return (
-                  <span>{item +" "}</span>
+                  <span key={index}>{item +" "}</span>
                   )
                 })
               }
           </div>
           <div className={props.data.isTypingCorrect===true?'current-word':'current-word wrong-word'}>
-              {props.data.currentWord}
+              <span>{props.data.currentWord}</span>
           </div>
           <div className='words-to-write'>
             {
-              props.data.words.map(item=>{
+              props.data.words.map((item,index)=>{
                 return(
-                  <span>
+                  <span key={index}>
                     {item +" "}
                   </span>
                 )
@@ -32,9 +32,6 @@ function TypingField(props) {
             }
           </div>
         </div>
-        {
-          <p>{props.data.numCorrectWords}</p>
-        }
     </div>
   )
 }

@@ -1,10 +1,13 @@
 .holder{
+    margin:auto;
+    margin-top:30vh;
     display: flex;
     justify-content:end;
     width: 50vw;
     border:solid;
     height: 50px;
     font-size: 32px;
+    font-family: Merriweather,serif;
 }
 .writen-words{
     color:grey;
@@ -15,10 +18,10 @@
     flex-direction: row-reverse;
 }
 .current-word{
-    text-align: right;
-    align-self: stretch;
+    /*align-self: stretch;*/
     margin-left:8px;
     color:blue;
+    max-width: 50%;
 }
 .words-to-write{
     min-width: 50%;
@@ -33,7 +36,6 @@
 .writen-words span{
     margin-left:8px;
 }
-
 .words-to-write span{
     margin-right: 8px;
 }

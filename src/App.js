@@ -11,20 +11,30 @@ function App() {
   const [isTypingCorrect,setIsTypingCorrect] = useState(true);
 
   const [result,setResult] = useState({numCorrectWords:0,numCorrectChars:0,accuracy:0});
-  const [timeLeft,setTimeLeft] = useState(10);
+  const [timeLeft,setTimeLeft] = useState(60);
   const [intervalId,setIntervalId] = useState(0);
 
+  const restart =() =>{
+    setTimeLeft(60);
+    setCurrentWord("");
+    setWordToCheck("");
+    setWordsPassed([]);
+    setIsTypingCorrect(true);
+    setResult({numCorrectWords:0,numCorrectChars:0,accuracy:0});
+    setIntervalId(0);
+
+    fetchRandomWords();
+  }
   const handleTyping = (e)=>{
 
     //if timeleft is 60 run the timer 
-    if(timeLeft === 10){
+    if(timeLeft === 60){
       //set the time left - 1 , if i dont do it when i type fast at the beggining the interval will be called mutiple times
       setTimeLeft(timeLeft-1);
       const interval = setInterval(()=>setTimeLeft(prevTime=>prevTime-1),1000);
       setIntervalId(interval);
     }
    
-    
     const key = e.key;
     if(key=="Backspace"){
       backspacePressed(key);
@@ -142,14 +152,17 @@ function App() {
 
   }
 
-  useEffect(()=>{
-
+  const fetchRandomWords = () =>{
     fetch(`https://random-word-api.herokuapp.com/word?number=20`)
     .then(res=>res.json())
     .then(res=>{
       setWordToCheck(res[0])
       setWords(res);
     })
+  }
+
+  useEffect(()=>{
+    fetchRandomWords();
   },[])
 
   useEffect(()=>{
@@ -179,7 +192,8 @@ function App() {
         {timeLeft===0 && <Results 
           numCorrectWords={result.numCorrectWords}
           numCorrectChars={result.numCorrectChars}
-          accuracy={result.accuracy} />}
+          accuracy={result.accuracy}
+          restart={restart} />}
     </div>
   )
 }

@@ -11,34 +11,34 @@ function App() {
   const [isTypingCorrect,setIsTypingCorrect] = useState(true);
 
   const [result,setResult] = useState({numCorrectWords:0,numCorrectChars:0,accuracy:0});
-  const [timeLeft,setTimeLeft] = useState(60);
-  const [intervalId,setIntervalId] = useState(0);
+  const [started,setStarted] = useState(false);
+  const [finished,setFinished] = useState(false);
+  const [timerRestart,setTimerRestart] = useState(0);//every time i increment timeRestart the clock restarts
 
   const restart =() =>{
-    setTimeLeft(60);
     setCurrentWord("");
     setWordToCheck("");
     setWordsPassed([]);
     setIsTypingCorrect(true);
     setResult({numCorrectWords:0,numCorrectChars:0,accuracy:0});
-    setIntervalId(0);
-
+    setStarted(false);
+    setFinished(false);
+    setTimerRestart((prevTime) => prevTime+1);
     fetchRandomWords();
+  }
+  const toogleFinish =()=>{
+    setFinished(!finished);
   }
   const handleTyping = (e)=>{
 
-    //if timeleft is 60 run the timer 
-    if(timeLeft === 60){
-      //set the time left - 1 , if i dont do it when i type fast at the beggining the interval will be called mutiple times
-      setTimeLeft(timeLeft-1);
-      const interval = setInterval(()=>setTimeLeft(prevTime=>prevTime-1),1000);
-      setIntervalId(interval);
+    if(started===false){
+      setStarted(true);
     }
-   
+
     const key = e.key;
-    if(key=="Backspace"){
+    if(key==="Backspace"){
       backspacePressed(key);
-    }else if(key == " "){
+    }else if(key === " "){
       spacePressed();
     }else{
       typing(key);
@@ -79,7 +79,7 @@ function App() {
           if(index === 1){
             setWordToCheck(item);
           }
-          if(index!=0){
+          if(index!==0){
             return item;
           }
         })
@@ -165,31 +165,26 @@ function App() {
     fetchRandomWords();
   },[])
 
-  useEffect(()=>{
-    //clear the timer interval when it reacehs 0
-    if(timeLeft<=0){
-      clearInterval(intervalId);
-      setIntervalId(0);
-    }
-  },[timeLeft])
-
   return (
     <div>
         <Timer 
-          timeLeft={timeLeft}
+          toogleFinish={toogleFinish}
           numCorrectWords={result.numCorrectWords}
           numCorrectChars={result.numCorrectChars}
           accuracy={result.accuracy}
+          started={started}
+          timerRestart={timerRestart}
         />
         <TypingField data={{
-           currentWord:currentWord,
-           words:words,
-           wordsPassed:wordsPassed,
-           isTypingCorrect:isTypingCorrect,
-        }}
-        handler={handleTyping}
+            currentWord:currentWord,
+            words:words,
+            wordsPassed:wordsPassed,
+            isTypingCorrect:isTypingCorrect,
+          }}
+          handler={handleTyping}
         />
-        {timeLeft===0 && <Results 
+
+        {finished===true && <Results 
           numCorrectWords={result.numCorrectWords}
           numCorrectChars={result.numCorrectChars}
           accuracy={result.accuracy}

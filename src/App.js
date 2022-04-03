@@ -1,4 +1,5 @@
 import React,{useState,useEffect} from 'react'
+import Header from './Header';
 import TypingField from './TypingField';
 import Timer from './Timer';
 import Results from './Results';
@@ -166,7 +167,8 @@ function App() {
   },[])
 
   return (
-    <div>
+    <div className='main-body'>
+        <Header />
         <Timer 
           toogleFinish={toogleFinish}
           numCorrectWords={result.numCorrectWords}

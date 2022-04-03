@@ -1,0 +1,34 @@
+.header{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    font-family: Colfax,sans-serif;
+    padding:20px;
+}
+.logo{
+    font-size: 2em;
+    font-weight: bold;
+}
+.header-menu{
+    display: flex;
+}
+.header-menu p{
+    margin-left:2em;
+}
+.header-menu p:hover{
+    text-decoration-line: underline;
+    text-decoration-color:#ee0007;  
+    cursor: pointer;
+}
+.try-it{
+    background-color: #ee0007;
+    font-size: 1.2em;
+    padding: 10px;
+    color:white;
+    font-weight: bold;
+    border-radius: 5px;
+}
+.try-it:hover{
+    background-color: #ff060f;
+    cursor: pointer;
+}

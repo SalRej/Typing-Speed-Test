@@ -1,4 +1,3 @@
-import { render } from '@testing-library/react';
 import React from 'react'
 import { CountdownCircleTimer } from 'react-countdown-circle-timer'
 
@@ -25,6 +24,8 @@ function Timer(props) {
             duration={60}
             colors={['#004777', '#F7B801', '#A30000', '#A30000']}
             colorsTime={[7, 5, 2, 0]}
+            size={130}
+            strokeWidth	={5}
             onComplete={()=>{
                 props.toogleFinish()
             }}

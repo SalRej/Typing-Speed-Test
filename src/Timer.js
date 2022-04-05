@@ -30,7 +30,7 @@ function Timer(props) {
                 colors={['#004777', '#F7B801', '#A30000', '#A30000']}
                 colorsTime={[7, 5, 2, 0]}
                 size={110}
-                strokeWidth	={5}
+                strokeWidth	={7}
                 onComplete={()=>{
                     props.toogleFinish()
                 }}

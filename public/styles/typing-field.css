@@ -1,22 +1,26 @@
-body{
-    /* background-image: url(https://res.cloudinary.com/dn1j6dpd7/image/upload/f_auto,q_auto/v1600423784/typing-speed-test/test-bg-left.png),url(https://res.cloudinary.com/dn1j6dpd7/image/upload/f_auto,q_auto/v1600423784/typing-speed-test/test-bg-right.png); */
+:root{
+    --input-height:2.3em;
+    --input-width:70vw;
 }
-.holder{
+.input-field{
     margin:auto;
-    margin-top:30vh;
+    margin-top:13vh;
     display: flex;
     justify-content:end;
-    width: 50vw;
-    border:solid;
-    height: 50px;
-    font-size: 32px;
+    width: var(--input-width);
+    height: var(--input-height);
     font-family: Merriweather,serif;
+    line-height: var(--input-height);
+    font-size:3.5em;
+    background-color: white;
+    border-radius: 13px;
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px;
 }
 .writen-words{
     color:grey;
     overflow:hidden;
     max-width: 50%;
-    height: 50px;
+    height: var(--input-height);
     display: flex;
     flex-direction: row-reverse;
 }

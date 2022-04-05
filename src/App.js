@@ -167,30 +167,33 @@ function App() {
   },[])
 
   return (
-    <div className='main-body'>
+    <div>
         <Header />
-        <Timer 
-          toogleFinish={toogleFinish}
-          numCorrectWords={result.numCorrectWords}
-          numCorrectChars={result.numCorrectChars}
-          accuracy={result.accuracy}
-          started={started}
-          timerRestart={timerRestart}
-        />
-        <TypingField data={{
-            currentWord:currentWord,
-            words:words,
-            wordsPassed:wordsPassed,
-            isTypingCorrect:isTypingCorrect,
-          }}
-          handler={handleTyping}
-        />
+        <div className={finished===true ? 'main-body disable-click':'main-body'}>
+          <Timer 
+            toogleFinish={toogleFinish}
+            numCorrectWords={result.numCorrectWords}
+            numCorrectChars={result.numCorrectChars}
+            accuracy={result.accuracy}
+            started={started}
+            timerRestart={timerRestart}
+          />
+          <TypingField data={{
+              currentWord:currentWord,
+              words:words,
+              wordsPassed:wordsPassed,
+              isTypingCorrect:isTypingCorrect,
+              finished:finished
+            }}
+            handler={handleTyping}
+          />
 
-        {finished===true && <Results 
-          numCorrectWords={result.numCorrectWords}
-          numCorrectChars={result.numCorrectChars}
-          accuracy={result.accuracy}
-          restart={restart} />}
+        </div>
+          { finished===true && <Results 
+            numCorrectWords={result.numCorrectWords}
+            numCorrectChars={result.numCorrectChars}
+            accuracy={result.accuracy}
+            restart={restart} />}
     </div>
   )
 }

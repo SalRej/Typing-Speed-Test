@@ -1,12 +1,13 @@
 import React from 'react'
 
 function TypingField(props) {
-    const test = (e) =>{
+
+    const callHandler = (e) =>{
         props.handler(e);
     }
   return (
-    <div>
-        <div className='holder' tabIndex="0" onKeyUp={test}>
+    <div className='holder'>
+        <div className='input-field' tabIndex="0" onKeyUp={props.data.finished===false ? callHandler:undefined}>
           <div className='writen-words'>
             {
               //loops though the array from the back

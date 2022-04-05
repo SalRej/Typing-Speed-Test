@@ -9,8 +9,7 @@ function Timer(props) {
       
         return (
           <div className="timer">
-            <div className="text">Remaining</div>
-            <div className="value">{remainingTime}</div>
+            <div className="timer-value">{remainingTime}</div>
             <div className="text">seconds</div>
           </div>
         );
@@ -18,31 +17,44 @@ function Timer(props) {
 
   return (
     <div>
-        <CountdownCircleTimer
-            key={props.timerRestart}
-            isPlaying={props.started}
-            duration={60}
-            colors={['#004777', '#F7B801', '#A30000', '#A30000']}
-            colorsTime={[7, 5, 2, 0]}
-            size={130}
-            strokeWidth	={5}
-            onComplete={()=>{
-                props.toogleFinish()
-            }}
-        >
-            {renderTime}
-        </CountdownCircleTimer>
-        <div>
-            Timer:{props.timeLeft}
+        <div className='test-speed'>
+            <p>Typing Speed Test</p>
+            <h1>Test your typing skills</h1>
         </div>
-        <div>
-            Correct Words:{props.numCorrectWords}
-        </div>
-        <div>
-            Correct Words:{props.numCorrectChars}
-        </div>
-        <div>
-            Accuracy :{props.accuracy}
+
+        <div className='performance-holder'>
+            <CountdownCircleTimer
+                key={props.timerRestart}
+                isPlaying={props.started}
+                duration={6}
+                colors={['#004777', '#F7B801', '#A30000', '#A30000']}
+                colorsTime={[7, 5, 2, 0]}
+                size={110}
+                strokeWidth	={5}
+                onComplete={()=>{
+                    props.toogleFinish()
+                }}
+            >
+                {renderTime}
+            </CountdownCircleTimer>
+            <div className='value-holder'>
+                <div className='value'>
+                    {props.numCorrectWords}
+                </div>
+                <p>words/min</p>
+            </div>
+            <div className='value-holder'>
+                <div className='value'>
+                    {props.numCorrectChars}
+                </div>
+                <p>chars/min</p>
+            </div>
+            <div className='value-holder'>
+                <div className='value'>
+                    {props.accuracy}
+                </div>
+                <p>% accuracy</p>
+            </div>
         </div>
     </div>
     

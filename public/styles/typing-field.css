@@ -79,14 +79,21 @@
     border-radius: 0.25em;
     padding:0 1% 0 1%;
 
-    animation: updown 0.7s linear forwards;
+    animation: updown 1.1s linear forwards;
     animation-iteration-count: infinite;
     display: block;
 }
 
 @keyframes updown {
-    0%,100% { top: 100; }
-    50% { top: 0; }
+    0% {
+        top: -5%;
+    }
+    50% {
+        top: 5%;
+    }
+    100% {
+        top: -5%;
+    }
 }
 
 

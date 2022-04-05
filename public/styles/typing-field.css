@@ -3,6 +3,7 @@
     --input-width:70vw;
 }
 .input-field{
+    position: relative;
     margin:auto;
     margin-top:13vh;
     display: flex;
@@ -45,5 +46,25 @@
 }
 .words-to-write span{
     margin-right: 8px;
+}
+.write-indicator{
+    position:absolute;
+    height: calc(var(--input-height)/2.5);
+    width: 2px;
+    background-color: black;
+    left: 50%;
+    top:33%;
+    display: none;
+}
+
+@keyframes fadeinout {
+    0%,100% { opacity: 0; }
+    50% { opacity: 1; }
+}
+.input-field:focus .write-indicator{
+    opacity: 1;
+    animation: fadeinout 0.5s linear forwards;
+    animation-iteration-count: infinite;
+    display: block;
 }
 

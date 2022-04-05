@@ -1,0 +1,24 @@
+.results-holder{
+    background-color: white;
+    width: 25vw;
+    height: 30vh;
+    position: absolute;
+    left: 50%;
+    transform: translate(-50%, 0);
+    top: 20%;
+    border-radius: 15px;
+    text-align: center;
+    box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;}
+.results-holder h3{
+   margin-top:7%;
+}
+.results-holder button{
+    background-color: #ee0007;
+    padding:3% 6% 3% 6%;
+    border: none;
+    border-radius: 13px;
+}
+.results-holder button:hover{
+    background-color: #ff454b;
+    cursor: pointer;
+}

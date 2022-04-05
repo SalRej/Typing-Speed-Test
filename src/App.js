@@ -101,7 +101,7 @@ function App() {
 
         //im adding 1 to wordsPassed.lenght ,because the wordsPassed is not updated yet
         //from the previous setWordsPassed call 
-        const accuracy = 100/(1 + wordsPassed.length) * correctWords;
+        const accuracy = Math.floor(100/(1 + wordsPassed.length) * correctWords);
         setResult({
           ...result,
           numCorrectWords:correctWords,
@@ -109,7 +109,7 @@ function App() {
           accuracy:accuracy
         })
       }else{
-        const accuracy = 100/(1 + wordsPassed.length) * result.numCorrectWords;
+        const accuracy = Math.floor(100/(1 + wordsPassed.length) * result.numCorrectWords);
         setResult({
           ...result,
           accuracy:accuracy
@@ -154,7 +154,7 @@ function App() {
   }
 
   const fetchRandomWords = () =>{
-    fetch(`https://random-word-api.herokuapp.com/word?number=20`)
+    fetch(`https://random-word-api.herokuapp.com/word?number=200`)
     .then(res=>res.json())
     .then(res=>{
       setWordToCheck(res[0])

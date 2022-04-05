@@ -26,7 +26,7 @@ function Timer(props) {
             <CountdownCircleTimer
                 key={props.timerRestart}
                 isPlaying={props.started}
-                duration={6}
+                duration={60}
                 colors={['#004777', '#F7B801', '#A30000', '#A30000']}
                 colorsTime={[7, 5, 2, 0]}
                 size={110}

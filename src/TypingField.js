@@ -21,6 +21,10 @@ function TypingField(props) {
           <div className={props.data.isTypingCorrect===true?'current-word':'current-word wrong-word'}>
               <span>{props.data.currentWord}</span>
           </div>
+          {props.data.started === false && <div className='start-typing'>
+                Start typing
+            </div>
+          }
           <div className='write-indicator'>
 
           </div>

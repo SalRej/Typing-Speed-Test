@@ -183,7 +183,8 @@ function App() {
               words:words,
               wordsPassed:wordsPassed,
               isTypingCorrect:isTypingCorrect,
-              finished:finished
+              finished:finished,
+              started:started
             }}
             handler={handleTyping}
           />

@@ -63,8 +63,30 @@
 }
 .input-field:focus .write-indicator{
     opacity: 1;
-    animation: fadeinout 0.5s linear forwards;
+    animation: fadeinout 0.7s linear forwards;
     animation-iteration-count: infinite;
     display: block;
 }
+.start-typing{
+    font-size: 0.4em;
+    position: absolute;
+    top:-10%;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: rgb(255, 208, 0);
+    height: 2em;
+    line-height: 2em;
+    border-radius: 0.25em;
+    padding:0 1% 0 1%;
+
+    animation: updown 0.7s linear forwards;
+    animation-iteration-count: infinite;
+    display: block;
+}
+
+@keyframes updown {
+    0%,100% { top: 100; }
+    50% { top: 0; }
+}
+
 
